@@ -1,0 +1,38 @@
+---
+interface Props extends astroHTML.JSX.HTMLAttributes {
+    /**
+     * HTML 元素
+     * - 默认为 `section`
+     */
+    tag?: string;
+    /**
+     * `wrapper` 的 CSS 类名
+     */
+    wrapperClass?: string;
+}
+
+const {
+    tag: Element = "section",
+    wrapperClass,
+    class: className,
+    ...props
+} = Astro.props;
+---
+
+<Element class:list={["block", className]} {...props}>
+    <section class:list={["wrapper", wrapperClass]}>
+        <slot />
+    </section>
+</Element>
+
+<style lang="less">
+    @import "@/utils/mixins.less";
+
+    .block {
+        .block-component-styles();
+
+        & > .wrapper {
+            .block-wrapper-component-styles();
+        }
+    }
+</style>

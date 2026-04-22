@@ -1,0 +1,58 @@
+---
+import Layout from "@/layouts/layout.astro";
+import Block from "@/components/block.astro";
+
+type ItemType = {
+    name: string;
+    url: string;
+};
+const list: [string, ItemType[]][] = [];
+const listByCategory: Record<string, ItemType[]> = {};
+Object.keys(import.meta.glob("./**/!(_*).astro")).forEach((pathname) => {
+    const filename = pathname.replace(/^\.\//, "");
+    const [category, ...rest] = filename.split("/");
+    if (rest.at(-1) === "index.astro") rest.pop();
+    const name = rest.join("/").replace(/\.astro$/, "");
+    const url = [Astro.originPathname, category, name]
+        .filter(Boolean)
+        .join("/")
+        .replace(/\/\//, "/");
+
+    if (!listByCategory[category]) {
+        const thisList: ItemType[] = [];
+        listByCategory[category] = thisList;
+        list.push([category, thisList]);
+    }
+    listByCategory[category].push({ name, url });
+});
+---
+
+<Layout title="信息图表">
+    <Block>
+        {
+            list.map(([title, list]) => (
+                <dl>
+                    <dt>{title.toUpperCase()}</dt>
+                    {list.map((item) => (
+                        <dd>
+                            <a class="link" href={item.url}>
+                                {item.name}
+                            </a>
+                        </dd>
+                    ))}
+                </dl>
+            ))
+        }</Block
+    >
+</Layout>
+
+<style lang="less">
+    @import "@/utils/mixins.less";
+
+    dl {
+        dt {
+            color: var(--text-color-primary);
+            font-weight: bold;
+        }
+    }
+</style>

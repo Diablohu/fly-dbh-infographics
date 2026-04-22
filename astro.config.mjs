@@ -1,0 +1,118 @@
+// @ts-check
+import path from "node:path";
+import { defineConfig, fontProviders } from "astro/config";
+import react from "@astrojs/react";
+import node from "@astrojs/node";
+import { normalizePath } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+import { viteStaticCopy } from "vite-plugin-static-copy";
+import { getViteStaticCopyDestBase } from "./config/vite-plugins/helpers";
+import compileStandAloneLessFilesPlugin from "./config/vite-plugins/compile-stand-alone-less-files";
+
+import "dotenv/config";
+
+// ============================================================================
+
+const { FLYDBH_BUILD_MODE } = process.env;
+const isDev = process.env.NODE_ENV === "development";
+/** 模式：分析打包文件尺寸 */
+const isAnalyze = FLYDBH_BUILD_MODE === "analyze";
+/** 模式：next.fly-dbh.com */
+const isNext = FLYDBH_BUILD_MODE === "next";
+const site = "http://localhost:8088";
+
+// #region Astro Config
+// https://astro.build/config
+export default defineConfig({
+    integrations: [react()],
+    adapter: node({
+        mode: "standalone",
+    }),
+
+    site,
+
+    // #region 字体
+    fonts: [
+        {
+            provider: fontProviders.local(),
+            name: "Helvetica Compressed",
+            cssVariable: "--font-helvetica-compressed",
+            fallbacks: ["sans-serif"],
+            options: {
+                variants: [
+                    {
+                        src: ["./src/assets/fonts/Helvetica-Compressed.otf"],
+                    },
+                ],
+            },
+        },
+    ],
+
+    // #region 多语言
+    // i18n: {},
+
+    // #region 客户端
+    prefetch: {
+        defaultStrategy: "tap",
+    },
+
+    // #region 服务器
+    output: "server",
+    server: ({ command }) => ({
+        port: command === "dev" ? 8088 : 8080,
+    }),
+    trailingSlash: "never",
+    security: {
+        // checkOrigin: false,
+        allowedDomains: [
+            {
+                hostname: "localhost",
+            },
+        ],
+    },
+
+    // #region 开发环境
+    devToolbar: {
+        enabled: false,
+    },
+
+    // #region Vite
+    // Asotro 框架默认使用 Vite 进行打包
+    vite: {
+        // build: {
+        //     outDir: "",
+        // },
+        // build: {
+        //     ssr: true,
+        //     ssrEmitAssets: true,
+        // },
+        plugins: [
+            isAnalyze
+                ? visualizer({
+                      emitFile: true,
+                      filename: "stats.html",
+                      gzipSize: true,
+                      brotliSize: true,
+                  })
+                : undefined,
+            viteStaticCopy({
+                targets: [
+                    {
+                        src: normalizePath(
+                            path.resolve("node_modules/viewerjs/dist/**/*"),
+                        ),
+                        dest: getViteStaticCopyDestBase() + "libs/viewerjs",
+                        rename: {
+                            stripBase: 3,
+                        },
+                    },
+                ],
+            }),
+            compileStandAloneLessFilesPlugin(),
+        ],
+    },
+
+    // #region 试验选项
+    experimental: {},
+});
+// #endregion Astro Config

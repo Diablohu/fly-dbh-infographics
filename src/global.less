@@ -1,0 +1,433 @@
+@import "normalize.css/normalize.css";
+@import "toastify-js/src/toastify.css";
+@import "@/utils/mixins.less";
+
+:root {
+    // ========================================================================
+    //
+    // MARK: CSS 变量：全局
+    //
+    // ========================================================================
+
+    --global-content-root-z-index: 10;
+    --global-footer-z-index: 10;
+    --global-glossy-modal-z-index: 100;
+    --global-message-z-index: 1000;
+
+    --global-edge-safe-distance: @global-edge-safe-distance;
+    --global-bottom-safe-distance: env(safe-area-inset-bottom, 0px);
+    --global-block-max-width: calc(
+        1600px + var(--global-edge-safe-distance) * 2
+    );
+    // --global-header-height: unit((60 / @base-font-size-number), rem);
+    --global-header-height: 60px;
+    --global-header-z-index: 9999;
+    --global-header-nav-max-width: var(--global-block-max-width);
+    --global-header-background-color: var(--theme-color-p-70);
+    --global-header-backdrop-filter: var(--backdrop-filter-glass);
+    --global-header-position: sticky;
+    --global-header-offset-y: 0;
+    --global-header-glossy-extra-height: 0px;
+    --global-announcement-height: 45px;
+    --global-announcement-count: 0;
+    // --global-small-screen-navbar-height: unit((55 / @base-font-size-number), rem);
+    --global-small-screen-navbar-height: 55px;
+    --global-small-screen-navbar-bottom-edge: calc(
+        var(--global-edge-safe-distance) * 2 / 3
+    );
+    --global-small-screen-navbar-background-color: var(--theme-color-p-20);
+    --global-sticky-top: calc(
+        var(--global-header-height) + var(--global-announcement-height) *
+            var(--global-announcement-count)
+    );
+    --global-sidebar-width: 11rem;
+
+    --font-family-base:
+        Roboto, "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica",
+        "Arial", "Microsoft YaHei UI", "Microsoft YaHei", "Hiragino Sans GB",
+        sans-serif;
+    --font-family-logo:
+        var(--font-helvetica-compressed), var(--font-family-base);
+    --font-family-monospace:
+        "Lucida Console", monospace, ui-monospace, var(--font-family-base);
+    --global-font-family: var(--font-family-base);
+    --global-font-weight: 400;
+
+    --body-safe-min-width: 375px;
+    --body-scrollbar-width: 0px;
+
+    --layout-aside-link-item-padding-x: unit(
+        (@global-edge-safe-distance-sm * 2/3),
+        px
+    );
+    --layout-aside-link-item-padding-left-extra: 0px;
+    --layout-aside-link-item-icon-size: 1.5em;
+    --layout-aside-link-item-icon-margin: 0.75em;
+    --layout-aside-link-item-with-icon-padding-left: calc(
+        var(--layout-aside-link-item-padding-left-extra) +
+            var(--layout-aside-link-item-icon-size) +
+            var(--layout-aside-link-item-icon-margin) * 2
+    );
+    --layout-aside-link-item-no-icon-dot-size: 0.75em;
+    --layout-aside-link-item-no-icon-dot-border-width: 2px;
+
+    --hero-image-z-index: 9000;
+    --hero-image-offset-y: 0;
+    --hero-image-glossy-opacity: 0;
+    --hero-image-stiky-height: var(--global-header-height);
+
+    --title-letter-spacing: -0.04em;
+    --backdrop-filter-blur-value: 20px;
+    --backdrop-filter-saturate-value: 180%;
+    --backdrop-filter-glass: saturate(var(--backdrop-filter-saturate-value))
+        blur(var(--backdrop-filter-blur-value));
+    --overlay-box-shadow: 0 4px 10px 0 var(--shadow-color);
+    --base-transition-duration: @base-transition-duration;
+
+    --spinner-size: 3rem;
+    --spinner-color: var(--text-color-secondary);
+
+    .screen-sm({
+        --global-edge-safe-distance: @global-edge-safe-distance-sm;
+    });
+
+    // ========================================================================
+    //
+    // MARK: CSS 变量：颜色
+    //
+    // ========================================================================
+
+    --color-scheme: dark light;
+    --dark-text-color-primary: #f1f1f1;
+    --dark-text-color-secondary: #aaa;
+    --dark-tag-background-color: rgba(255, 255, 255, 0.125);
+
+    --accent-color-purple: #6a14d1;
+    --accent-color-purple-p-20: #6a14d133;
+    --accent-color-blue: #04b8f4;
+    --accent-color-teal: #00ffff;
+    --accent-color-green: #76b900;
+    --accent-color-red: #ed1c24;
+    --accent-color: var(--accent-color-purple);
+    --theme-color-youtube: #ff0000;
+    --theme-color-bilibili: #00a1d6;
+    --theme-color-tiktok: #00faf0;
+    --theme-color-kook: #87eb00;
+    --theme-color-twitter: #ffffff;
+
+    --theme-color: var(--dark-theme-color);
+    --theme-color-p-20: var(--dark-theme-color-p-20);
+    --theme-color-p-30: var(--dark-theme-color-p-30);
+    --theme-color-p-40: var(--dark-theme-color-p-40);
+    --theme-color-p-50: var(--dark-theme-color-p-50);
+    --theme-color-p-60: var(--dark-theme-color-p-60);
+    --theme-color-p-70: var(--dark-theme-color-p-70);
+    --theme-color-p-80: var(--dark-theme-color-p-80);
+    --theme-color-p-90: var(--dark-theme-color-p-90);
+    --theme-color-invert: var(--light-theme-color);
+    --theme-color-invert-p-20: var(--light-theme-color-p-20);
+    --theme-color-invert-p-30: var(--light-theme-color-p-30);
+    --theme-color-invert-p-40: var(--light-theme-color-p-40);
+    --theme-color-invert-p-50: var(--light-theme-color-p-50);
+    --theme-color-invert-p-60: var(--light-theme-color-p-60);
+    --theme-color-invert-p-70: var(--light-theme-color-p-70);
+    --theme-color-invert-p-80: var(--light-theme-color-p-80);
+    --theme-color-invert-p-90: var(--light-theme-color-p-90);
+
+    --difficulty-color-1: #1eff00;
+    --difficulty-emoji-1: "🌱";
+    --difficulty-color-3: #3c9dff;
+    --difficulty-emoji-3: "🔥";
+    --difficulty-color-5: #c56fff;
+    --difficulty-emoji-5: "💀";
+    --difficulty-color-7: #ff8000;
+    // --difficulty-color-7: #e5cc80;
+    --difficulty-emoji-7: "🪦";
+
+    --text-color-primary: var(--dark-text-color-primary);
+    --text-color-secondary: var(--dark-text-color-secondary);
+    --text-color-invert: #606060;
+    --text-color-primary-invert: #0f0f0f;
+    --tag-background-color: var(--dark-tag-background-color);
+    --tag-background-color-invert: #f1f1f1;
+    --tag-border-color: var(--tag-background-color);
+    --menu-background-color: #282828;
+    --menu-background-color-highlight: #535353;
+    --menu-border-color: rgba(255, 255, 255, 0.1);
+    --border-color: rgba(255, 255, 255, 0.2);
+    --shadow-color: var(--theme-color-p-80);
+
+    --challenge-list-item-min-width: 17rem;
+    --challenge-item-background-color: transparent;
+
+    .color-scheme-light(@rules) {
+        &.force-color-scheme-light {
+            @rules();
+        }
+        @media (prefers-color-scheme: light) {
+            &:not(.force-color-scheme-dark) {
+                @rules();
+            }
+        }
+    }
+    .color-scheme-light({
+        --color-scheme: only light;
+
+        // --theme-color-tiktok: #397684;
+        --theme-color-kook: #69b700;
+        --theme-color-twitter: #000000;
+
+        --theme-color: var(--light-theme-color);
+        --theme-color-p-20: var(--light-theme-color-p-20);
+        --theme-color-p-30: var(--light-theme-color-p-30);
+        --theme-color-p-40: var(--light-theme-color-p-40);
+        --theme-color-p-50: var(--light-theme-color-p-50);
+        --theme-color-p-60: var(--light-theme-color-p-60);
+        --theme-color-p-70: var(--light-theme-color-p-70);
+        --theme-color-p-80: var(--light-theme-color-p-80);
+        --theme-color-p-90: var(--light-theme-color-p-90);
+        --theme-color-invert: var(--dark-theme-color);
+        --theme-color-invert-p-20: var(--dark-theme-color-p-20);
+        --theme-color-invert-p-30: var(--dark-theme-color-p-30);
+        --theme-color-invert-p-40: var(--dark-theme-color-p-40);
+        --theme-color-invert-p-50: var(--dark-theme-color-p-50);
+        --theme-color-invert-p-60: var(--dark-theme-color-p-60);
+        --theme-color-invert-p-70: var(--dark-theme-color-p-70);
+        --theme-color-invert-p-80: var(--dark-theme-color-p-80);
+        --theme-color-invert-p-90: var(--dark-theme-color-p-90);
+
+        --difficulty-color-1: #15b000;
+        --difficulty-color-3: #0070dd;
+        --difficulty-color-5: #b039ff;
+        --difficulty-color-7: #ce6700;
+        // --difficulty-color-7: #b09800;
+
+        --text-color-primary: #0f0f0f;
+        --text-color-secondary: #606060;
+        --text-color-invert: var(--dark-text-color-secondary);
+        --text-color-primary-invert: var(--dark-text-color-primary);
+        --tag-background-color: rgba(0, 0, 0, 0.075);
+        --tag-background-color-invert: #0f0f0f;
+        --menu-background-color: #fff;
+        --menu-background-color-highlight: #e5e5e5;
+        --menu-border-color: rgba(0, 0, 0, 0.1);
+        --border-color: rgba(0, 0, 0, 0.1);
+        --shadow-color: var(--dark-theme-color-p-20);
+    });
+    // &.force-color-scheme-light {
+    //     --color-scheme: only light;
+    // }
+
+    // ========================================================================
+    //
+    // MARK: CSS 变量：组件
+    //
+    // ========================================================================
+
+    --list-container-grid-item-min-width: 270px;
+    --list-container-grid-gap: 2em 1em;
+    --list-container-grid-more-margin-top: 0;
+    .screen-lg({
+        --list-container-grid-item-min-width: 245px;
+    });
+    .screen-md-below({
+        --list-container-grid-item-min-width: 190px;
+    });
+
+    // ========================================================================
+    //
+    // MARK: CSS 变量：页面
+    //
+    // ========================================================================
+
+    --homepage-collection-gap: 5rem;
+    --homepage-collection-divider-color: var(--border-color);
+    --homepage-collection-divider-height: 1px;
+
+    // ========================================================================
+    //
+    // MARK: 全局基础样式
+    //
+    // ========================================================================
+
+    .font-size-clamp-with-line-height(
+        unit((@base-font-size-number / 0.85), px),
+        unit((1.5 * @base-font-size-number / 0.85), px)
+    );
+    font-family: var(--global-font-family);
+    font-weight: var(--global-font-weight);
+    color: var(--text-color-secondary);
+    background: var(--theme-color);
+    box-sizing: border-box;
+    color-scheme: var(--color-scheme);
+    transition: none var(--base-transition-duration);
+    transition-property: color, background-color;
+
+    &[lang="ja"] {
+        --font-family-base:
+            "Noto Sans JP", "Lucida Grande", "Hiragino Kaku Gothic ProN",
+            Meiryo, Roboto, sans-serif;
+    }
+}
+
+// ============================================================================
+//
+// MARK: HTML 基础样式
+//
+// ============================================================================
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+a,
+button[type="button"],
+button[type="submit"] {
+    transition: var(--base-transition-duration);
+    transition-property: transform, color;
+    &:active {
+        transform: translateY(2px);
+    }
+}
+
+a {
+    display: inline-block;
+    color: var(--text-color-secondary);
+    &:hover {
+        color: var(--text-color-primary);
+        text-decoration: none;
+    }
+}
+
+button[type="button"],
+button[type="submit"] {
+    cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    line-height: 120%;
+    letter-spacing: var(--title-letter-spacing);
+    color: var(--text-color-primary);
+    letter-spacing: 0.025em;
+}
+
+h1 {
+    font-size: unit((@base-font-size-number-h1 / @base-font-size-number), em);
+}
+h2 {
+    font-size: unit((@base-font-size-number-h2 / @base-font-size-number), em);
+}
+h3 {
+    font-size: unit((@base-font-size-number-h3 / @base-font-size-number), em);
+}
+h4 {
+    font-size: unit((@base-font-size-number-h4 / @base-font-size-number), em);
+}
+h5 {
+    font-size: unit((@base-font-size-number-h5 / @base-font-size-number), em);
+}
+
+hr {
+    border-color: var(--border-color);
+    border-top-width: 0;
+    border-bottom-width: 1px;
+}
+
+select {
+    cursor: pointer;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    th,
+    td {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+// ============================================================================
+//
+// MARK: 图片查看器
+//
+// ============================================================================
+// img {
+//     object-fit: contain;
+// }
+
+// figure.markdown-image {
+//     position: relative;
+//     display: block;
+//     margin-block-start: 0.5em;
+//     margin-block-end: 0.5em;
+//     margin-left: auto;
+//     margin-right: auto;
+//     text-align: center;
+
+//     & > img {
+//         position: relative;
+//         z-index: 5;
+//         display: inline-block;
+//         cursor: zoom-in;
+//         padding: 0.5em;
+//         // border: 1px solid var(--border-color);
+//     }
+
+//     &::after {
+//         content: "";
+//     }
+// }
+a.image-viewer-container:has(img[data-image-viewer]) {
+    --hover-scale: 1.01;
+    --active-transform: scale(1) transformY(0px);
+    display: block;
+    position: relative;
+    cursor: zoom-in;
+    .pointer-hover-no-global({
+        // opacity: 0.9;
+        img[data-image-viewer]{
+            transform: scale(var(--hover-scale));
+        }
+    });
+    img[data-image-viewer] {
+        cursor: zoom-in;
+        transition: var(--base-transition-duration);
+        transition-property: opacity, transform;
+        .pointer-hover-no-global({
+            // opacity: 0.9;
+            transform: scale(var(--hover-scale));
+        });
+        &:active {
+            transform: translateY(2px) !important;
+        }
+        &.is-loading-image-viewer {
+            opacity: 0.5;
+        }
+    }
+    &:has(img.is-loading-image-viewer) {
+        --hover-scale: 1;
+        pointer-events: none;
+        &::after {
+            .spinner-styles();
+            --spinner-color: var(--text-color-primary);
+            content: "";
+            position: absolute;
+            z-index: 10;
+            top: 50%;
+            left: 50%;
+            margin-top: calc(var(--spinner-size) / -2);
+            margin-left: calc(var(--spinner-size) / -2);
+        }
+    }
+    &:active {
+        transform: var(--active-transform);
+    }
+}

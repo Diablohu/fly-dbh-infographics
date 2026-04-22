@@ -1,0 +1,408 @@
+@global-edge-safe-distance: 30px;
+@global-edge-safe-distance-sm: 20px;
+
+@screen-size-xs: 440px;
+@screen-size-xs-plus-edge-safe-distance: (
+    @screen-size-xs + @global-edge-safe-distance-sm * 2
+);
+@screen-size-sm: 576px;
+@screen-size-sm-plus-edge-safe-distance: (
+    @screen-size-sm + @global-edge-safe-distance-sm * 2
+);
+@screen-size-md: 780px;
+@screen-size-md-plus-edge-safe-distance: (
+    @screen-size-md + @global-edge-safe-distance * 2
+);
+@screen-size-lg: 1030px;
+@screen-size-lg-plus-edge-safe-distance: (
+    @screen-size-lg + @global-edge-safe-distance * 2
+);
+@screen-size-xl: 1300px;
+@screen-size-xl-plus-edge-safe-distance: (
+    @screen-size-xl + @global-edge-safe-distance * 2
+);
+
+// ============================================================================
+//
+// MARK: 字号
+//
+// ============================================================================
+
+@base-font-size-number: 14;
+@base-font-size-number-h1: 22px;
+@base-font-size-number-h2: 20px;
+@base-font-size-number-h3: 18px;
+@base-font-size-number-h4: 16px;
+@base-font-size-number-h5: 14px;
+@base-transition-duration: 0.2s;
+
+.font-size-clamp(@min-font-size, @font-size) {
+    font-size: unit(@font-size, px);
+    font-size: clamp(
+        unit(@min-font-size, px),
+        unit((175 * @font-size / 1920), vw),
+        unit(@font-size, px)
+    );
+}
+
+.font-size-clamp-with-line-height(@size, @line-height) {
+    font-size: @size;
+    font-size: clamp((@size * 0.85), unit((175 * @size / 1920), vw), @size);
+    line-height: unit((@line-height / @size), em);
+}
+
+// ============================================================================
+//
+// MARK: 视频播放器
+//
+// ============================================================================
+
+@video-player-sticky-screen-aspect-ratio: 0.75;
+@video-player-dynamic-screen-min-height: 620px;
+
+// ============================================================================
+//
+// MARK: 响应式
+//
+// ============================================================================
+
+.screen-sm(@rules) {
+    @media screen and (max-width: @screen-size-sm) {
+        & {
+            @rules();
+        }
+    }
+}
+.screen-md-below(@rules) {
+    @media screen and (max-width: @screen-size-md) {
+        & {
+            @rules();
+        }
+    }
+}
+.screen-md(@rules) {
+    @media screen and (min-width: (@screen-size-sm + 1)) and (max-width: @screen-size-md) {
+        & {
+            @rules();
+        }
+    }
+}
+.screen-lg-below(@rules) {
+    @media screen and (max-width: @screen-size-lg) {
+        & {
+            @rules();
+        }
+    }
+}
+.screen-lg(@rules) {
+    @media screen and (min-width: (@screen-size-md + 1)) and (max-width: @screen-size-lg) {
+        & {
+            @rules();
+        }
+    }
+}
+
+// ============================================================================
+//
+// MARK: 颜色主题
+//
+// ============================================================================
+
+@selector-root-scheme-light: ~":root.force-color-scheme-light";
+@selector-root-scheme-dark: ~":root:not(.force-color-scheme-dark)";
+.color-scheme-light(@rules) {
+    :global(@{selector-root-scheme-light}) & {
+        @rules();
+    }
+    @media (prefers-color-scheme: light) {
+        :global(@{selector-root-scheme-dark}) & {
+            @rules();
+        }
+    }
+}
+.color-scheme-light-no-global(@rules) {
+    @{selector-root-scheme-light} & {
+        @rules();
+    }
+    @media (prefers-color-scheme: light) {
+        @{selector-root-scheme-dark} & {
+            @rules();
+        }
+    }
+}
+
+.local(@currentLocale, @rules) {
+    html[lang="@{currentLocale}"] & {
+        @rules();
+    }
+}
+
+// ============================================================================
+//
+// MARK: 容器
+//
+// ============================================================================
+
+.block-wrapper() {
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--global-edge-safe-distance);
+    padding-right: var(--global-edge-safe-distance);
+    max-width: var(--global-block-max-width);
+    width: 100%;
+}
+.block-component-styles() {
+    display: block;
+    position: relative;
+    width: 100%;
+    user-select: none;
+}
+.block-wrapper-component-styles() {
+    .block-wrapper();
+    user-select: auto;
+}
+
+// ============================================================================
+//
+// MARK: 指针悬停样式
+//
+// ============================================================================
+
+.pointer-hover(@rules, @extraRootSelector: "") {
+    // @media (hover: hover) and (pointer: fine) {
+    //     &:hover {
+    //         @rules();
+    //     }
+    // }
+    @selector-root-pointer-hover: ~":root.root-is-pointer-hover@{extraRootSelector}";
+    :global(@{selector-root-pointer-hover}) &:hover {
+        @rules();
+    }
+}
+.pointer-hover-no-global(@rules, @extraRootSelector: "") {
+    // @media (hover: hover) and (pointer: fine) {
+    //     &:hover {
+    //         @rules();
+    //     }
+    // }
+    @selector-root-pointer-hover: ~":root.root-is-pointer-hover@{extraRootSelector}";
+    @{selector-root-pointer-hover} &:hover {
+        @rules();
+    }
+}
+
+// ============================================================================
+//
+// MARK: 标签样式
+//
+// ============================================================================
+
+.tag-styles-base() {
+    --border-radius: 0.3333em;
+    padding: 0 0.5em;
+    color: var(--text-color-primary);
+    background: var(--tag-background-color);
+    border: 1px solid var(--tag-border-color);
+    border-radius: var(--border-radius);
+}
+.tag-styles() {
+    .tag-styles-base();
+    line-height: calc(1.6667em - 2px);
+    appearance: none;
+    text-decoration: none;
+    &,
+    &[type="button"],
+    &[type="submit"] {
+        transition: none var(--base-transition-duration);
+        transition-property:
+            color, background-color, border-color, border-width, transform,
+            opacity;
+    }
+    &:hover {
+        background-color: var(--menu-background-color-highlight);
+    }
+    &:disabled,
+    &[disabled] {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+
+// ============================================================================
+//
+// MARK: 箭头链接样式
+//
+// ============================================================================
+
+.link-with-arrow-styles() {
+    --arrow-line-width: 2px;
+    --arrow-translate-x: -10px;
+    --arrow-opacity: 0;
+
+    display: inline-block;
+    position: relative;
+    color: var(--text-color-primary);
+    text-decoration: none;
+    transition-property: color, transform, opacity, background-color;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        right: -0.4em;
+        border: var(--arrow-line-width) solid currentColor;
+        width: 0.5em;
+        height: 0.5em;
+        margin-top: -0.125em;
+        border-left-width: 0;
+        border-bottom-width: 0;
+        opacity: var(--arrow-opacity);
+        transform-origin: 100% 100%;
+        transform: translateX(var(--arrow-translate-x)) rotate(45deg);
+        transition: inherit;
+        transition-property: transform, opacity;
+    }
+    // &::before {
+    // }
+    &::after {
+        --arrow-line-width: 1px;
+        border-color: var(--text-color-secondary);
+        right: calc(-0.4em - 5px);
+    }
+    .pointer-hover({
+        --arrow-translate-x: 0;
+        --arrow-opacity: 1;
+    });
+}
+
+// ============================================================================
+//
+// MARK: 加载指示器
+//
+// ============================================================================
+
+.spinner-styles() {
+    display: block;
+    color: transparent;
+    overflow: hidden;
+    background-color: transparent;
+    border-radius: 100em;
+    border: 0.25em var(--spinner-color) solid;
+    border-left-color: transparent;
+    animation: rotating 1.5s infinite linear;
+    transform-origin: 50% 50%;
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    @keyframes rotating {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+// ============================================================================
+//
+// MARK: 挑战
+//
+// ============================================================================
+
+.difficulty-variables() {
+    &[data-difficulty="1"] {
+        --difficulty-color: var(--difficulty-color-1);
+        --difficulty-icon: var(--difficulty-emoji-1);
+    }
+    &[data-difficulty="3"] {
+        --difficulty-color: var(--difficulty-color-3);
+        --difficulty-icon: var(--difficulty-emoji-3);
+    }
+    &[data-difficulty="5"] {
+        --difficulty-color: var(--difficulty-color-5);
+        --difficulty-icon: var(--difficulty-emoji-5);
+    }
+    &[data-difficulty="7"] {
+        --difficulty-color: var(--difficulty-color-7);
+        --difficulty-icon: var(--difficulty-emoji-7);
+    }
+}
+
+.challenge-list-styles() {
+    display: grid;
+    // grid-template-columns: repeat(
+    //     auto-fill,
+    //     minmax(
+    //         calc(
+    //             var(--body-safe-min-width) -
+    //                 var(--global-edge-safe-distance) * 2
+    //         ),
+    //         1fr
+    //     )
+    // );
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(var(--challenge-list-item-min-width), 1fr)
+    );
+    grid-template-rows: repeat(1, 1fr);
+    gap: 1em;
+    margin: 0;
+    padding: 0 0 1em 0;
+}
+
+// ============================================================================
+//
+// MARK: 点阵样式
+//
+// ============================================================================
+.pixel-dots-styles() {
+    background-image: radial-gradient(
+        var(--dark-theme-color) 66.6667%,
+        transparent 66.6667%
+    );
+    background-size: 4px 4px;
+    opacity: 0.05;
+}
+
+// ============================================================================
+//
+// MARK: 毛玻璃样式
+//
+// ============================================================================
+
+.glossy-background-in-main-styles(@stickyTop: var(--global-header-height), @extraRules) {
+    @supports (mask-image: linear-gradient(black, transparent)) {
+        & {
+            top: calc(@stickyTop * -1);
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                transparent var(--global-header-height),
+                var(--global-header-background-color)
+                    var(--global-header-height)
+            );
+            // background: var(--global-header-background-color);
+            backdrop-filter: var(--global-header-backdrop-filter);
+            mask-image: linear-gradient(
+                to top,
+                transparent,
+                rgba(0, 0, 0, 0.4) 1rem,
+                rgba(0, 0, 0, 0.8) 2rem,
+                rgba(0, 0, 0, 0.95) 3rem,
+                #000 calc(100% - var(--global-header-height))
+            );
+            // mask-image: linear-gradient(
+            //     to bottom,
+            //     transparent,
+            //     transparent var(--global-header-height),
+            //     #000 var(--global-header-height),
+            //     #000
+            // );
+            @extraRules();
+        }
+    }
+}
