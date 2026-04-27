@@ -8,5 +8,5 @@ type Props = ComponentProps<typeof Procedures>;
 ---
 
 <BaseLayout>
-    <Procedures client:idle {...Astro.props} />
+    <Procedures client:idle initialUrl={Astro.url} {...Astro.props} />
 </BaseLayout>

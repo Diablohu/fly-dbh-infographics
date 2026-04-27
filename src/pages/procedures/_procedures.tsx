@@ -41,7 +41,7 @@ const Procedures: FC<{
      * 用以计算初始显示的步骤的初始 URL
      * - 如果存在 `initialIndex`，则忽视该属性
      */
-    initialUrl?: string;
+    initialUrl?: string | URL;
 }> = ({ title, procedures, initialIndex, initialUrl }) => {
     const [viewType] = useViewType();
     const [currentStepIndex, setCurrentStepIndex] = useState(
@@ -49,9 +49,11 @@ const Procedures: FC<{
             ? initialIndex
             : typeof initialUrl === "string"
               ? Number(
-                    new URL(initialUrl).searchParams.get(searchParamIndex)
+                    new URL(initialUrl).searchParams.get(searchParamIndex),
                 ) || 0
-              : 0) || 0
+              : initialUrl instanceof URL
+                ? Number(initialUrl.searchParams.get(searchParamIndex)) || 0
+                : 0) || 0,
     );
     const currentProcedure = useMemo(() => {
         return procedures[currentStepIndex];
@@ -62,7 +64,7 @@ const Procedures: FC<{
             const index = Number(e.currentTarget.getAttribute("data-index"));
             setCurrentStepIndex(index);
         },
-        []
+        [],
     );
 
     // 当 `currentStepIndex` 变化时，改写当前 URL
@@ -172,7 +174,7 @@ const Procedures: FC<{
                                                     typeof ident === "number"
                                                         ? 1
                                                         : 0,
-                                                    -1
+                                                    -1,
                                                 )
                                                 .join(" ")}
                                         </dt>
