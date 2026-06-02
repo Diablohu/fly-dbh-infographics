@@ -1,0 +1,500 @@
+---
+import Layout from "./_layout.astro";
+---
+
+<Layout
+    title="msfs2024"
+    updates={[{ type: "su", number: 5 }]}
+    itemGroups={[
+        {
+            name: "general",
+            title: "综合体验",
+            items: [
+                {
+                    title: "帧率表现",
+                    infos: [
+                        "多项优化",
+                        {
+                            type: "list-item",
+                            content: "物理模拟多线程",
+                        },
+                        { type: "list-item", content: "粒子效果" },
+                        { type: "list-item", content: "建筑物 & 桥梁" },
+                        { type: "list-item", content: "航班 & 船舶" },
+                        { type: "list-item", content: "机场停泊车辆" },
+                        { type: "list-item", content: "丛林" },
+                    ],
+                    columnSpan: 4,
+                    rowSpan: 5,
+                    background: {
+                        name: "2026-01-24-23-21-22.png",
+                        size: "auto 150%",
+                        position: "20% 50%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    style: { "--mask-min-width": "100%" },
+                },
+                {
+                    title: "气流模拟",
+                    infos: [
+                        "增强：尾流效果",
+                        "改进：直升机在平台边缘的 CFD",
+                        "调整气流可视化：按颜色区分强度",
+                        {
+                            type: "new",
+                            content: "气流可视化统一控制界面",
+                        },
+                    ],
+                    columnSpan: 8,
+                    rowSpan: 3,
+                    background: {
+                        name: "2026-01-24-23-21-22.png",
+                        size: "250% auto",
+                        position: "65% 27%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    style: {
+                        "--mask-min-width": "100%",
+                        "--mask-opacity": "0.5",
+                    },
+                },
+                {
+                    // implemented: false,
+                    title: "界面交互",
+                    infos: [
+                        {
+                            type: "new",
+                            content: "小地图下方显示模拟倍率",
+                        },
+                        {
+                            type: "new",
+                            content: "选项：单独隐藏船舶名牌",
+                        },
+                        {
+                            type: "new",
+                            content: "选项：粒子效果质量",
+                        },
+                        {
+                            type: "new",
+                            content: "选项：隐藏绕机检查时的按键提示",
+                        },
+                    ],
+                    columnSpan: 8,
+                    rowSpan: 3,
+                    background: {
+                        name: "20251124154437_1.jpg",
+                        size: "auto 300%",
+                        position: "25% 35%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    style: {
+                        "--mask-min-width": "150%",
+                        "--mask-opacity": "0.25",
+                    },
+                },
+                {
+                    title: "飞行员生涯",
+                    infos: [
+                        { type: "new", content: "超大货物运输执照" },
+                        { type: "new", content: "VTOL 执照" },
+                        "防止出生时判定坠毁",
+                    ],
+                    columnSpan: 4,
+                    rowSpan: 3,
+                    background: {
+                        name: "2025-12-12-20-50-04.png",
+                        size: "150% auto",
+                        position: "40% 90%",
+                    },
+                    // type: 'center',
+                    bgMaskOrientation: "vertical",
+                    textSize: "sm",
+                    style: {
+                        "--mask-height-vertical": "125%",
+                        // justifyContent: 'flex-end',
+                    },
+                },
+                {
+                    title: "VR",
+                    infos: [
+                        { type: "new", content: "支持 PSVR2" },
+                        "菜单位置独立保存",
+                    ],
+                    columnSpan: 4,
+                    rowSpan: 2,
+                    background: {
+                        name: "20260104033226_1.jpg",
+                        size: "150% auto",
+                        position: "0% 70%",
+                    },
+                    bgMaskOrientation: "vertical",
+                    textSize: "sm",
+                    style: {
+                        "--mask-height-vertical": "150%",
+                        // '--mask-min-width': '150%',
+                        "--mask-opacity": "0.6667",
+                    },
+                },
+                {
+                    title: "EFB",
+                    infos: [
+                        { type: "new", content: "选项：气压单位" },
+                        "自动隐藏不可用的 App",
+                    ],
+                    columnSpan: 4,
+                    rowSpan: 2,
+                    background: {
+                        name: "20251213223951_1.jpg",
+                        size: "300% auto",
+                        position: "40% 95%",
+                    },
+                    bgMaskOrientation: "vertical",
+                    textSize: "sm",
+                    // style: { '--mask-height-vertical': '100%' },
+                },
+                {
+                    title: "多人模型映射",
+                    infos: ["旋翼不映射成固定翼", "按规格寻找相近机型"],
+                    columnSpan: 3,
+                    rowSpan: 2,
+                    background: {
+                        name: "2025-12-14-03-31-35.png",
+                        size: "150% auto",
+                        position: "100% 50%",
+                    },
+                    bgMaskOrientation: "vertical",
+                    textSize: "sm",
+                    style: {
+                        "--mask-height-vertical": "200%",
+                        "--mask-opacity": "0.15",
+                    },
+                },
+                {
+                    title: "热点问题修复",
+                    infos: [
+                        "AMD 显卡锯齿图像",
+                        "地标标记不显示",
+                        "出生时无视所选跑道",
+                    ],
+                    columnSpan: 3,
+                    rowSpan: 2,
+                    background: {
+                        name: "2026-01-24-23-24-03.png",
+                        size: "150% auto",
+                        position: "40% 50%",
+                    },
+                    // type: 'center',
+                    bgMaskOrientation: "vertical",
+                    textSize: "sm",
+                    style: {
+                        "--mask-opacity": "0.45",
+                    },
+                },
+                {
+                    title: "内置市场",
+                    infos: [
+                        {
+                            type: "new",
+                            content: "赠礼 (限定货币)",
+                        },
+                        {
+                            type: "new",
+                            content: "PS5 版试运营",
+                        },
+                    ],
+                    columnSpan: 3,
+                    rowSpan: 2,
+                    background: {
+                        name: "20251025012844_1.jpg",
+                        size: "cover",
+                        position: "35% 100%",
+                    },
+                    // type: 'center',
+                    bgMaskOrientation: "vertical",
+                    textSize: "sm",
+                    style: {
+                        // '--mask-height-vertical': '150%',
+                        // justifyContent: 'flex-end',
+                        "--mask-opacity": "0.3333",
+                    },
+                },
+                {
+                    title: "SDK / API",
+                    infos: [
+                        {
+                            type: "new",
+                            content: "气象雷达倾角",
+                        },
+                    ],
+                    columnSpan: 3,
+                    rowSpan: 2,
+                    background: {
+                        name: "20251129021014_1.jpg",
+                        size: "cover",
+                        position: "35% 100%",
+                    },
+                    // type: 'center',
+                    bgMaskOrientation: "vertical",
+                    textSize: "sm",
+                    style: {
+                        // '--mask-height-vertical': '150%',
+                        // justifyContent: 'flex-end',
+                        "--mask-opacity": "0.3333",
+                    },
+                },
+            ],
+        },
+
+        {
+            name: "aircrafts",
+            title: "机型",
+            items: [
+                {
+                    // implemented: false,
+                    title: "ATR-42/72-600",
+                    infos: ["翻新重做，支持生涯模式"],
+                    columnSpan: 6,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    style: {
+                        "--mask-min-width": "100%",
+                        // '--mask-height-horizontal': '100%',
+                        "--mask-opacity": "1",
+                    },
+                },
+                {
+                    // implemented: false,
+                    title: "安东诺夫 AN-2",
+                    infos: ["翻新重做，支持生涯模式"],
+                    columnSpan: 6,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020221.670.png",
+                        size: "125% auto",
+                        position: "0% 92%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    style: {
+                        // '--mask-min-width': '125%',
+                        // '--mask-height-horizontal': '100%',
+                        // '--mask-opacity': '0.666',
+                    },
+                },
+                {
+                    // implemented: false,
+                    title: "福克 F.VII",
+                    infos: ["翻新重做，支持生涯模式", "开发转移到 iniBuilds"],
+                    columnSpan: 4,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020244.397.png",
+                        size: "133% auto",
+                        position: "30% 70%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    textSize: "sm",
+                    style: {
+                        "--mask-min-width": "125%",
+                        // '--mask-height-horizontal': '100%',
+                        // '--mask-opacity': '0.666',
+                    },
+                },
+                {
+                    // implemented: false,
+                    title: "马尔凯蒂 S.55",
+                    infos: ["翻新重做"],
+                    columnSpan: 4,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020314.720.png",
+                        size: "133% auto",
+                        position: "20% 65%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    textSize: "sm",
+                    style: {
+                        "--mask-min-width": "200%",
+                        // '--mask-height-horizontal': '100%',
+                        "--mask-opacity": "0.75",
+                    },
+                },
+                {
+                    // implemented: false,
+                    title: "Latécoère 631",
+                    infos: ["翻新重做"],
+                    columnSpan: 4,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020252.390.png",
+                        size: "133% auto",
+                        position: "20% 70%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    textSize: "sm",
+                    style: {
+                        "--mask-min-width": "200%",
+                        // '--mask-height-horizontal': '100%',
+                        "--mask-opacity": "0.75",
+                    },
+                },
+                // {
+                //     // implemented: false,
+                //     title: '空客 A330',
+                //     infos: ['修复：ND 地形显示不可用'],
+                //     columnSpan: 6,
+                //     img: require('./imgs/2026-03-21-01-08-02.png'),
+                //     backgroundSize: '175% auto',
+                //     backgroundPosition: '0% 57%',
+                //     bgMaskOrientation: 'horizontal',
+                //     textSize: 'sm',
+                //     style: {
+                //         '--mask-min-width': '75%',
+                //         // '--mask-height-horizontal': '100%',
+                //         // '--mask-opacity': '0.666',
+                //     },
+                // },
+                {
+                    // implemented: false,
+                    title: "波音 737 MAX-8",
+                    infos: ["改进：VNAV & 下滑道逻辑"],
+                    columnSpan: 6,
+                    background: {
+                        name: "20250326030206_1.jpg",
+                        size: "200% auto",
+                        position: "30% 49%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    textSize: "sm",
+                    style: {
+                        // '--mask-min-width': '125%',
+                        // '--mask-height-horizontal': '100%',
+                        // '--mask-opacity': '0.666',
+                    },
+                },
+                {
+                    // implemented: false,
+                    title: "塞斯纳 208B",
+                    infos: ["改进：起落架 & 地面物理"],
+                    columnSpan: 6,
+                    background: {
+                        name: "c208b.jpg",
+                        size: "175% auto",
+                        position: "75% 55%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    textSize: "sm",
+                    style: {
+                        "--mask-min-width": "100%",
+                        // '--mask-height-horizontal': '100%',
+                        // '--mask-opacity': '0.666',
+                    },
+                },
+                {
+                    // implemented: false,
+                    title: "塞斯纳 172",
+                    infos: [
+                        {
+                            type: "new",
+                            content: "搭载 Avidyne IFD 的型号",
+                        },
+                    ],
+                    columnSpan: 6,
+                    background: {
+                        name: "2026-01-01-23-31-31.png",
+                        size: "200% auto",
+                        position: "0% 45%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    textSize: "sm",
+                    style: {
+                        "--mask-min-width": "125%",
+                        // '--mask-height-horizontal': '100%',
+                        "--mask-opacity": "0.5",
+                    },
+                },
+                {
+                    // implemented: false,
+                    title: "贝尔 407",
+                    infos: ["开发转移到 iniBuilds"],
+                    columnSpan: 6,
+                    background: {
+                        name: "683e480751bd3.jpg",
+                        size: "110% auto",
+                        position: "0% 55%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    textSize: "sm",
+                    style: {
+                        // '--mask-min-width': '125%',
+                        // '--mask-height-horizontal': '100%',
+                        "--mask-opacity": "0.6667",
+                    },
+                },
+            ],
+        },
+
+        {
+            name: "avionics",
+            title: "航电",
+            items: [
+                {
+                    // implemented: false,
+                    title: ["Avidyne", "IFD 540 / 550"],
+                    infos: ["向开发者开放"],
+                    columnSpan: 4,
+                    background: {
+                        name: "2025-12-19-A359 ZPLJ ZPMS 23＞05-A21N RJGG RJBD-PC6T AYGA Aibai AYGW AYWB-XB1 KMHV KLAX-Norden SAR.mp4_20260409_013721.526.png",
+                        size: "200% auto",
+                        position: "45% 60%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    textSize: "sm",
+                    style: {
+                        "--mask-min-width": "125%",
+                        // '--mask-height-horizontal': '100%',
+                        "--mask-opacity": "0.666",
+                    },
+                },
+                {
+                    // implemented: false,
+                    title: "佳明 G3000 / G5000",
+                    infos: ["改进：VNAV 逻辑", "可显示和过滤直升机坪"],
+                    columnSpan: 4,
+                    background: {
+                        name: "2025-02-04-03-13-38.png",
+                        size: "225% auto",
+                        position: "0% 25%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    textSize: "sm",
+                    style: {
+                        "--mask-min-width": "125%",
+                        // '--mask-height-horizontal': '100%',
+                        "--mask-opacity": "0.5",
+                    },
+                },
+                {
+                    // implemented: false,
+                    title: ["霍尼韦尔", "Primus Epic 2"],
+                    infos: ["改进：VNAV 逻辑"],
+                    columnSpan: 4,
+                    background: {
+                        name: "2025-03-28-23-56-28_1.jpg",
+                        size: "125% auto",
+                        position: "0% 75%",
+                    },
+                    bgMaskOrientation: "horizontal",
+                    textSize: "sm",
+                    style: {
+                        // '--mask-min-width': '125%',
+                        // '--mask-height-horizontal': '100%',
+                        "--mask-opacity": "0.5",
+                    },
+                },
+            ],
+        },
+    ]}
+    style={{
+        // zoom: "2",
+    }}
+/>

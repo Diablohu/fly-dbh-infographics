@@ -1,7 +1,8 @@
 import {
+    Fragment,
     type DetailedHTMLProps,
     type HTMLAttributes,
-    // type CSSProperties,
+    type CSSProperties,
     type ReactNode,
     type FC,
 } from "react";
@@ -9,30 +10,53 @@ import classNames from "classnames";
 
 import useViewType from "../../_use-view-type";
 
-import styles from "./_cell.module.less";
+import styles from "./cell.module.less";
 
 // ============================================================================
 
 export type CellProps = {
     /** 标题 */
-    title: ReactNode;
-    /** 内容 */
+    title: string | string[];
+    /** 细节信息 */
     infos?: Array<
-        | ReactNode
+        | string
         | {
-              type: "fix" | "new" | "implement" | "change" | "remove";
-              content: ReactNode;
+              type:
+                  | "fix"
+                  | "new"
+                  | "implement"
+                  | "change"
+                  | "remove"
+                  | "list-item";
+              content: string;
           }
     >;
-    /** 配图 */
-    img?: string;
-    mask?: boolean;
+    background?: {
+        name?: string;
+        mask?: boolean;
+        /** CSS Style: background-size */
+        size?: CSSProperties["backgroundSize"];
+        /** CSS Style: background-position */
+        position?: CSSProperties["backgroundPosition"];
+    };
+    // img?: string;
+    // mask?: boolean;
     textSize?: "lg" | "md" | "sm";
+    /** 行数 */
+    rowSpan?: number;
+    /** 列数 */
+    columnSpan?: number;
+    // type?: "info" | "center";
+    // infoCell?: boolean;
+    // lightBorder?: boolean;
+    style?: CSSProperties & Record<string, string>;
+    // extra?: ReactNode;
+    /** 开发者 */
+    // developers?: string[];
     bgMaskOrientation?: "horizontal" | "vertical";
-    align?: "left" | "center" | "right";
-    verticalAlign?: "top" | "middle" | "bottom";
-    // style?: CSSProperties & Record<string, string>;
-    extra?: ReactNode;
+    delayed?: boolean;
+    implemented?: false;
+    // cells?: ItemCellType[];
 } & Partial<
     Omit<
         DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
@@ -47,13 +71,10 @@ const Cell: FC<CellProps> = ({
 
     title,
     infos,
-    img,
+    background = {},
 
     textSize,
     bgMaskOrientation = "vertical",
-    align = "left",
-    verticalAlign = "top",
-    extra,
 
     children,
     style = {},
@@ -67,25 +88,38 @@ const Cell: FC<CellProps> = ({
                 className,
                 styles["cell"],
                 {
-                    [styles[`is-view-${viewType}`]]: true,
+                    [styles[`is-view-${viewType}`]]: !!viewType,
 
                     [styles[`mod-text-size-${textSize}`]]: !!textSize,
                     [styles[`mod-bg-mask-orientation-${bgMaskOrientation}`]]:
                         !!bgMaskOrientation,
-                    [styles[`mod-align-${align}`]]: !!align,
-                    [styles[`mod-vertical-align-${verticalAlign}`]]:
-                        !!verticalAlign,
+                    // [styles[`mod-align-${align}`]]: !!align,
+                    // [styles[`mod-vertical-align-${verticalAlign}`]]:
+                    //     !!verticalAlign,
                 },
             ])}
             style={{
-                backgroundImage: !img ? undefined : `url(${img})`,
+                backgroundImage: background.name
+                    ? `url(/static-images/${background.name})`
+                    : undefined,
+                backgroundSize: background.size,
+                backgroundPosition: background.position,
                 ...style,
             }}
             {...props}
         >
             {children ?? (
                 <>
-                    <strong>{title}</strong>
+                    <strong>
+                        {Array.isArray(title)
+                            ? title.map((line, i, arr) => (
+                                  <Fragment key={i}>
+                                      {line}
+                                      {i < arr.length - 1 ? <br /> : null}
+                                  </Fragment>
+                              ))
+                            : title}
+                    </strong>
                     {infos?.map((info, index) => {
                         if (
                             info &&
@@ -103,7 +137,7 @@ const Cell: FC<CellProps> = ({
                     })}
                 </>
             )}
-            {extra}
+            {/* {extra} */}
         </div>
     );
 };
