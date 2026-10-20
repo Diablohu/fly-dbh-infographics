@@ -8,23 +8,28 @@ type ItemType = {
 };
 const list: [string, ItemType[]][] = [];
 const listByCategory: Record<string, ItemType[]> = {};
-Object.keys(import.meta.glob("./**/!(_*).astro")).forEach((pathname) => {
-    const filename = pathname.replace(/^\.\//, "");
-    const [category, ...rest] = filename.split("/");
-    if (rest.at(-1) === "index.astro") rest.pop();
-    const name = rest.join("/").replace(/\.astro$/, "");
-    const url = [Astro.originPathname, category, name]
-        .filter(Boolean)
-        .join("/")
-        .replace(/\/\//, "/");
+Object.keys(import.meta.glob("./**/*.astro"))
+    .filter((pathname) => {
+        // 过滤掉以 `_` 开头的文件
+        return !/\/_/.test(pathname);
+    })
+    .forEach((pathname) => {
+        const filename = pathname.replace(/^\.\//, "");
+        const [category, ...rest] = filename.split("/");
+        if (rest.at(-1) === "index.astro") rest.pop();
+        const name = rest.join("/").replace(/\.astro$/, "");
+        const url = [Astro.originPathname, category, name]
+            .filter(Boolean)
+            .join("/")
+            .replace(/\/\//, "/");
 
-    if (!listByCategory[category]) {
-        const thisList: ItemType[] = [];
-        listByCategory[category] = thisList;
-        list.push([category, thisList]);
-    }
-    listByCategory[category].push({ name, url });
-});
+        if (!listByCategory[category]) {
+            const thisList: ItemType[] = [];
+            listByCategory[category] = thisList;
+            list.push([category, thisList]);
+        }
+        listByCategory[category].push({ name, url });
+    });
 ---
 
 <Layout title="信息图表">

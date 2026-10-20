@@ -86,6 +86,12 @@ export default defineConfig({
         //     ssr: true,
         //     ssrEmitAssets: true,
         // },
+        resolve: {
+            alias: {
+                // TODO: Astro 8 第一个版本 bug：LESS 没有继承 tsconfig 的别名配置
+                "@": normalizePath(path.resolve("./src")),
+            },
+        },
         plugins: [
             isAnalyze
                 ? visualizer({
