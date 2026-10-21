@@ -7,6 +7,8 @@ import {
     type HTMLAttributes,
 } from "react";
 import classNames from "classnames";
+import numeral from "numeral";
+import dayjs from "dayjs";
 
 import useViewType from "../_use-view-type";
 
@@ -29,6 +31,10 @@ const Highlights: FC<
             name: string;
             title: string;
             items: CellProps[];
+            gridTemplate?: {
+                rows?: string;
+                columns?: string;
+            };
         }[];
         isBeta?: boolean;
     } & DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
@@ -51,26 +57,82 @@ const Highlights: FC<
                     [styles[`is-view-${viewType}`]]: !!viewType,
                 },
             ])}
+            data-view={viewType}
+            data-title={title}
             {...props}
         >
-            <section className={styles["header"]}></section>
+            <section className={styles["logo"]}>
+                <span className={styles["top"]} />
+                <span className={styles["bottom"]}>
+                    <span className={styles["wrapper"]}>
+                        <span className={styles["title"]}>
+                            {title === "msfs2020"
+                                ? "2020"
+                                : title === "msfs2024"
+                                  ? "2024"
+                                  : null}
+                        </span>
+                        {Array.isArray(updates) && updates.length > 0 && (
+                            <span className={styles["updates"]}>
+                                {updates.map(({ type, number }, index) => (
+                                    <span
+                                        key={index}
+                                        className={styles["update"]}
+                                    >
+                                        <small>
+                                            {type === "su" &&
+                                            updates.length === 1
+                                                ? "SIM UPDATE"
+                                                : type.toUpperCase()}
+                                        </small>
+                                        {numeral(number).format("00")}
+                                    </span>
+                                ))}
+                            </span>
+                        )}
+                    </span>
+                </span>
+            </section>
             <section className={styles["body"]}>
                 {itemGroups.map((group, index) => (
                     <section
                         key={index}
                         className={styles["group"]}
                         data-name={group.name}
+                        style={{
+                            gridArea: group.name,
+                        }}
                     >
                         <h2 className={styles["title"]}>{group.title}</h2>
-                        <section className={styles["grid"]}>
+                        <section
+                            className={styles["grid"]}
+                            style={{
+                                gridTemplateRows: group.gridTemplate?.rows,
+                                gridTemplateColumns:
+                                    group.gridTemplate?.columns,
+                            }}
+                        >
                             {group.items.map((item, itemIndex) => (
-                                <Cell key={itemIndex} {...item} />
+                                <Cell
+                                    className={classNames([
+                                        styles["cell"],
+                                        {
+                                            [styles[`is-view-${viewType}`]]:
+                                                !!viewType,
+                                        },
+                                    ])}
+                                    key={itemIndex}
+                                    data-view={viewType}
+                                    {...item}
+                                />
                             ))}
                         </section>
                     </section>
                 ))}
             </section>
-            <section className={styles["footer"]}></section>
+            <section className={styles["footer"]}>
+                {dayjs().format("YYYY-MM-DD")} | fly-dbh.com
+            </section>
         </section>
     );
 };

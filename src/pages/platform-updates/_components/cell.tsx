@@ -104,6 +104,10 @@ const Cell: FC<CellProps> = ({
                     : undefined,
                 backgroundSize: background.size,
                 backgroundPosition: background.position,
+                gridColumn: props.columnSpan
+                    ? `span ${props.columnSpan}`
+                    : undefined,
+                gridRow: props.rowSpan ? `span ${props.rowSpan}` : undefined,
                 ...style,
             }}
             {...props}

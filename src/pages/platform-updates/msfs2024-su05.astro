@@ -12,6 +12,10 @@ import Layout from "./_layout.astro";
         {
             name: "general",
             title: "综合体验",
+            gridTemplate: {
+                rows: "repeat(10, 1fr)",
+                columns: "repeat(12, 1fr)",
+            },
             items: [
                 {
                     title: "帧率表现",
@@ -251,6 +255,10 @@ import Layout from "./_layout.astro";
         {
             name: "aircrafts",
             title: "机型",
+            gridTemplate: {
+                rows: "repeat(2, 3fr) repeat(2, 2fr)",
+                columns: "repeat(12, 1fr)",
+            },
             items: [
                 {
                     // implemented: false,
@@ -439,6 +447,10 @@ import Layout from "./_layout.astro";
         {
             name: "avionics",
             title: "航电",
+            gridTemplate: {
+                rows: "1fr",
+                columns: "repeat(12, 1fr)",
+            },
             items: [
                 {
                     // implemented: false,
@@ -498,6 +510,16 @@ import Layout from "./_layout.astro";
         },
     ]}
     style={{
-        // zoom: "2",
-    }}
+        "--body-grid-template-columns": "1fr 1fr",
+        "--body-grid-template-rows": `var(--group-title-height) 4fr 4fr 4fr var(--group-title-height) 3.4fr`,
+        "--body-grid-template-areas": `
+            "general aircrafts"
+            "general aircrafts"
+            "general aircrafts"
+            "general aircrafts"
+            "general avionics"
+            "general avionics"
+        `,
+        "--body-padding-x-unit": "50",
+    } as unknown as React.CSSProperties}
 />
