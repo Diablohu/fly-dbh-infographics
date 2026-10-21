@@ -1,5 +1,26 @@
 ---
 import Layout from "../_layout.astro";
+
+const images = Object.entries(
+    import.meta.glob<{ default: ImageMetadata }>(
+        `./_images/*.{png,jpg,jpeg,gif,webp,bmp,svg}`,
+        { eager: true },
+    ),
+)
+    .map(([path, module]: [string, any]) => ({
+        path,
+        src: module.default,
+        filename: path.split("/").pop() || "",
+    }))
+    .reduce(
+        (list, entry, index, arr) => {
+            list[entry.filename] = entry.src;
+            return list;
+        },
+        {} as Record<string, ImageMetadata>,
+    );
+
+// console.log(images);
 ---
 
 <Layout
@@ -18,6 +39,30 @@ import Layout from "../_layout.astro";
             },
             items: [
                 {
+                    title: "全新工具",
+                    infos: [
+                        {
+                            type: "new",
+                            content: "EFB App - 地面服务",
+                        },
+                        { type: "list-item", content: "控制后推车" },
+                        { type: "list-item", content: "呼叫地勤服务" },
+                        { type: "list-item", content: "开关舱门" },
+                        { type: "list-item", content: "一键完成绕机检查" },
+                    ],
+                    rowSpan: 3,
+                    columnSpan: 3,
+                    background: {
+                        image: images["20260928232920_1_.jpg"],
+                        size: "auto 150%",
+                        position: "47% 35%",
+                    },
+                    mask: {
+                        orientation: "vertical",
+                    },
+                    textSize: "lg",
+                },
+                {
                     title: "全新玩法",
                     infos: [
                         {
@@ -30,39 +75,17 @@ import Layout from "../_layout.astro";
                         },
                         { type: "list-item", content: "１v１短距起降对决" },
                     ],
-                    rowSpan: 3,
-                    columnSpan: 3,
-                    background: {
-                        name: "2026-01-24-23-21-22.png",
-                        size: "auto 150%",
-                        position: "20% 50%",
-                    },
-                    mask: {
-                        orientation: "horizontal",
-                    },
-                    textSize: "lg",
-                },
-                {
-                    title: "全新工具",
-                    infos: [
-                        {
-                            type: "new",
-                            content: "EFB App - 地面服务",
-                        },
-                        { type: "list-item", content: "控制后推车" },
-                        { type: "list-item", content: "呼叫地勤服务" },
-                        { type: "list-item", content: "开关舱门" },
-                        { type: "list-item", content: "一键完成绕机检查" },
-                    ],
                     rowSpan: 2,
                     columnSpan: 3,
                     background: {
-                        name: "2026-01-24-23-21-22.png",
-                        size: "250% auto",
-                        position: "65% 27%",
+                        image: images[
+                            "National Championship Air Races - Racer Pack 1 Available Now.mkv_20261021_120621.667.png"
+                        ],
+                        size: "auto 145%",
+                        position: "50% 60%",
                     },
                     mask: {
-                        orientation: "horizontal",
+                        orientation: "vertical",
                     },
                     textSize: "lg",
                 },
@@ -75,11 +98,12 @@ import Layout from "../_layout.astro";
                     rowSpan: 2,
                     columnSpan: 3,
                     background: {
-                        name: "2025-12-12-20-50-04.png",
-                        size: "150% auto",
-                        position: "40% 90%",
+                        image: images[
+                            "2026-09-28／A388 YMML YSSY／LFKB LFMN 04L.mp4_20261021_121857.170.png"
+                        ],
+                        size: "400% auto",
+                        position: "0% 80%",
                     },
-                    // type: 'center',
                     mask: {
                         orientation: "vertical",
                     },
@@ -91,23 +115,26 @@ import Layout from "../_layout.astro";
                     rowSpan: 1,
                     columnSpan: 3,
                     background: {
-                        name: "20251124154437_1.jpg",
-                        size: "auto 300%",
-                        position: "25% 35%",
+                        image: images[
+                            "POI Light Fix Paris & DC.mp4_20261021_121534.777.png"
+                        ],
+                        size: "auto 400%",
+                        position: "50% 70%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        opacity: 0.25,
                     },
-                    textSize: "lg",
+                    // textSize: "lg",
                 },
                 {
                     title: "帧率表现",
                     infos: ["优化：长途飞行变卡"],
                     columnSpan: 2,
                     background: {
-                        name: "20260104033226_1.jpg",
-                        size: "150% auto",
-                        position: "0% 70%",
+                        image: images["20261006184016_1.jpg"],
+                        size: "1000% auto",
+                        position: "42% 50%",
                     },
                     mask: {
                         orientation: "vertical",
@@ -116,12 +143,12 @@ import Layout from "../_layout.astro";
                 },
                 {
                     title: "官方手工机场",
-                    infos: ["优化资源占用"],
+                    infos: ["优化：资源占用"],
                     columnSpan: 2,
                     background: {
-                        name: "20260104033226_1.jpg",
-                        size: "150% auto",
-                        position: "0% 70%",
+                        image: images["20261020080150_1.jpg"],
+                        size: "800% auto",
+                        position: "65% 62%",
                     },
                     mask: {
                         orientation: "vertical",
@@ -133,9 +160,9 @@ import Layout from "../_layout.astro";
                     infos: [{ type: "new", content: "性能衡量工具" }],
                     columnSpan: 2,
                     background: {
-                        name: "20260104033226_1.jpg",
-                        size: "150% auto",
-                        position: "0% 70%",
+                        image: images["20261018011229_1.jpg"],
+                        size: "200% auto",
+                        position: "10% 90%",
                     },
                     mask: {
                         orientation: "vertical",
@@ -158,22 +185,24 @@ import Layout from "../_layout.astro";
                     infos: ["翻新重做", "进驻生涯模式"],
                     columnSpan: 4,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images["AAU6.mp4_20261021_122604.031.png"],
+                        size: "400% auto",
+                        position: "47% 70%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        opacity: 0.75,
                     },
+                    // textSize: "sm",
                 },
                 {
                     title: "容克斯 F-13",
                     infos: ["翻新重做", "进驻生涯模式"],
                     columnSpan: 4,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images["AAU6.mp4_20261021_122857.145.png"],
+                        size: "200% auto",
+                        position: "30% 80%",
                     },
                     mask: {
                         orientation: "horizontal",
@@ -184,12 +213,13 @@ import Layout from "../_layout.astro";
                     infos: ["翻新重做", "进驻生涯模式"],
                     columnSpan: 4,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images["AAU6 VTOL.mp4_20261021_123154.002.png"],
+                        size: "200% auto",
+                        position: "60% 70%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        opacity: 0.25,
                     },
                 },
                 {
@@ -197,12 +227,15 @@ import Layout from "../_layout.astro";
                     infos: ["翻新重做"],
                     columnSpan: 4,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images[
+                            "AAU6 Cabin, Taking-off, Landing.mp4_20261021_123328.883.png"
+                        ],
+                        size: "350% auto",
+                        position: "55% 62%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        opacity: 0.25,
                     },
                 },
                 {
@@ -210,9 +243,11 @@ import Layout from "../_layout.astro";
                     infos: ["翻新重做"],
                     columnSpan: 4,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images[
+                            "AAU6 Config Liveries, Taking-off, Landing.mp4_20261021_123553.436.png"
+                        ],
+                        size: "320% auto",
+                        position: "50% 72%",
                     },
                     mask: {
                         orientation: "horizontal",
@@ -223,12 +258,15 @@ import Layout from "../_layout.astro";
                     infos: ["大量优化修正"],
                     columnSpan: 4,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images[
+                            "Air Race 2024／UI／Rules／Aircrafts.mp4_20261021_123711.478.png"
+                        ],
+                        size: "200% auto",
+                        position: "40% 20%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        opacity: 0.25,
                     },
                 },
                 {
@@ -236,12 +274,15 @@ import Layout from "../_layout.astro";
                     infos: ["大量优化修正"],
                     columnSpan: 4,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images[
+                            "Air Race 2024／UI／Rules／Aircrafts.mp4_20261021_123725.669.png"
+                        ],
+                        size: "200% auto",
+                        position: "40% 20%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        // opacity: 0.25,
                     },
                 },
                 {
@@ -249,12 +290,15 @@ import Layout from "../_layout.astro";
                     infos: ["大量优化修正"],
                     columnSpan: 4,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images[
+                            "Air Race 2024／UI／Rules／Aircrafts.mp4_20261021_123733.701.png"
+                        ],
+                        size: "200% auto",
+                        position: "45% 15%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        opacity: 0.25,
                     },
                 },
                 {
@@ -262,9 +306,11 @@ import Layout from "../_layout.astro";
                     infos: ["大量优化修正"],
                     columnSpan: 4,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images[
+                            "Air Race 2024／UI／Rules／Aircrafts.mp4_20261021_123737.989.png"
+                        ],
+                        size: "200% auto",
+                        position: "60% 30%",
                     },
                     mask: {
                         orientation: "horizontal",
@@ -275,12 +321,15 @@ import Layout from "../_layout.astro";
                     infos: ["大量优化修正"],
                     columnSpan: 4,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images[
+                            "Air Race 2024／UI／Rules／Aircrafts.mp4_20261021_123745.438.png"
+                        ],
+                        size: "200% auto",
+                        position: "45% 20%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        opacity: 0.25,
                     },
                 },
                 {
@@ -289,8 +338,8 @@ import Layout from "../_layout.astro";
                     columnSpan: 5,
                     background: {
                         name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        size: "150% auto",
+                        position: "97% 60%",
                     },
                     mask: {
                         orientation: "horizontal",
@@ -301,22 +350,23 @@ import Layout from "../_layout.astro";
                     infos: [{ type: "new", content: "自动驾驶" }],
                     columnSpan: 5,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images["SU7 AP.mp4_20261021_124106.688.png"],
+                        size: "200% auto",
+                        position: "35% 90%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        opacity: 0.3333,
                     },
                 },
                 {
-                    title: "Taurus M",
+                    title: "蝙蝠 Taurus M",
                     infos: ["翻新航电", "大量优化修正"],
                     columnSpan: 5,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images["SU7.mp4_20261021_124247.681.png"],
+                        size: "250% auto",
+                        position: "35% 82%",
                     },
                     mask: {
                         orientation: "horizontal",
@@ -327,12 +377,15 @@ import Layout from "../_layout.astro";
                     infos: ["修复：EFB 中文渲染"],
                     columnSpan: 5,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images[
+                            "B703 Demo Flight Taxiing Taking-off Landing.mp4_20261021_124514.418.png"
+                        ],
+                        size: "250% auto",
+                        position: "45% 60%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        opacity: 0.3333,
                     },
                 },
                 {
@@ -340,12 +393,15 @@ import Layout from "../_layout.astro";
                     infos: [{ type: "new", content: "货物外观" }],
                     columnSpan: 5,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images[
+                            "Cruising shots & Gear Down.mp4_20261021_124935.621.png"
+                        ],
+                        size: "250% auto",
+                        position: "42% 68%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        opacity: 0.3333,
                     },
                 },
                 {
@@ -353,9 +409,9 @@ import Layout from "../_layout.astro";
                     infos: ["大量优化修正"],
                     columnSpan: 5,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images["200711-A-YG824-045.jpg"],
+                        size: "175% auto",
+                        position: "55% 30%",
                     },
                     mask: {
                         orientation: "horizontal",
@@ -366,9 +422,9 @@ import Layout from "../_layout.astro";
                     infos: ["大量优化修正"],
                     columnSpan: 5,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images["SU7 @ Rome.mp4_20261021_125216.351.png"],
+                        size: "300% auto",
+                        position: "40% 72%",
                     },
                     mask: {
                         orientation: "horizontal",
@@ -379,9 +435,9 @@ import Layout from "../_layout.astro";
                     infos: ["大量优化修正"],
                     columnSpan: 5,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images["images.jpg"],
+                        size: "110% auto",
+                        position: "50% 50%",
                     },
                     mask: {
                         orientation: "horizontal",
@@ -392,38 +448,48 @@ import Layout from "../_layout.astro";
                     infos: ["大量优化修正"],
                     columnSpan: 5,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images[
+                            "SU7 @ Tokyo.mp4_20261021_125530.432.png"
+                        ],
+                        size: "200% auto",
+                        position: "30% 75%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        opacity: 0.25,
                     },
                 },
                 {
                     title: "更多机型",
                     infos: ["修复：生涯任务飞行阶段切换"],
-                    columnSpan: 10,
+                    columnSpan: 7,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images["20261012230350_1.jpg"],
+                        size: "100% auto",
+                        position: "97% 100%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        opacity: 0.25,
                     },
                 },
                 {
                     title: "全新涂装",
-                    infos: [{ type: "new", content: "德国汉莎" }],
-                    columnSpan: 5,
+                    infos: [
+                        { type: "new", content: "德国汉莎" },
+                        "A310、A320、A330",
+                    ],
+                    columnSpan: 8,
                     background: {
-                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
-                        size: "133% auto",
-                        position: "97% 50%",
+                        image: images[
+                            "A310 Lufthansa Livery／Camera Panel Value bug.mp4_20261021_125832.907.png"
+                        ],
+                        size: "200% auto",
+                        position: "70% 55%",
                     },
                     mask: {
                         orientation: "horizontal",
+                        // opacity: 0.3333,
                     },
                 },
             ],

@@ -1,5 +1,6 @@
 import {
     Fragment,
+    useMemo,
     type DetailedHTMLProps,
     type HTMLAttributes,
     type CSSProperties,
@@ -32,8 +33,8 @@ export type CellProps = {
           }
     >;
     background?: {
+        image?: ImageMetadata;
         name?: string;
-        mask?: boolean;
         /** CSS Style: background-size */
         size?: CSSProperties["backgroundSize"];
         /** CSS Style: background-position */
@@ -41,6 +42,7 @@ export type CellProps = {
     };
     mask?: {
         orientation?: "horizontal" | "vertical";
+        opacity?: number;
     };
     // mask?: boolean;
     textSize?: "lg" | "md" | "sm";
@@ -73,12 +75,19 @@ const Cell: FC<CellProps> = ({
     textSize = "md",
     mask,
 
+    style: _style = {},
     children,
 
     ...props
 }) => {
     const [viewType] = useViewType();
     const maskOrientation = mask?.orientation ?? "vertical";
+    const style = useMemo(() => {
+        const style = _style as Record<string, string>;
+        if (typeof mask?.opacity === "number")
+            style["--background-mask-opacity"] = `${mask?.opacity}`;
+        return style;
+    }, [_style, mask]);
     return (
         <div
             className={classNames([
@@ -98,6 +107,7 @@ const Cell: FC<CellProps> = ({
             data-view={viewType}
             data-text-size={textSize}
             data-mask-orientation={maskOrientation}
+            style={style}
             {...props}
         >
             {children ?? (
@@ -133,8 +143,10 @@ const Cell: FC<CellProps> = ({
                 className={styles["background"]}
                 style={{
                     backgroundImage: background.name
-                        ? `url(/static-images/${background.name})`
-                        : undefined,
+                        ? `url("/static-images/${background.name}")`
+                        : background.image
+                          ? `url("${background.image.src}")`
+                          : undefined,
                     backgroundSize: background.size,
                     backgroundPosition: background.position,
                 }}

@@ -14,6 +14,7 @@ import styles from "./_controls.module.less";
 const backgroundImages = [
     "/25750b52129d205e8676d772a27ac1c52d12102b-2560x1440.png",
     "/d914a8255869df1c524558a08c6a27b781a0770c-2560x1440.jpg",
+    "/a224d071e61dbb92cc12c731739b1731c3bf43f6-2560x1440.jpg",
 ];
 
 // ============================================================================
