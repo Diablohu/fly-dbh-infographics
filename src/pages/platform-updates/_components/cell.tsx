@@ -46,9 +46,7 @@ export type CellProps = {
     };
     // mask?: boolean;
     textSize?: "lg" | "md" | "sm";
-    // type?: "info" | "center";
-    // infoCell?: boolean;
-    // lightBorder?: boolean;
+    border?: boolean;
     style?: CSSProperties & Record<string, string>;
     // extra?: ReactNode;
     /** 开发者 */
@@ -71,9 +69,10 @@ const Cell: FC<CellProps> = ({
     title,
     infos,
     background = {},
+    mask,
 
     textSize = "md",
-    mask,
+    border = true,
 
     style: _style = {},
     children,
@@ -99,6 +98,7 @@ const Cell: FC<CellProps> = ({
                     [styles[`mod-text-size-${textSize}`]]: !!textSize,
                     [styles[`mod-bg-mask-orientation-${maskOrientation}`]]:
                         !!maskOrientation,
+                    [styles[`mod-border`]]: border,
                     // [styles[`mod-align-${align}`]]: !!align,
                     // [styles[`mod-vertical-align-${verticalAlign}`]]:
                     //     !!verticalAlign,

@@ -5,6 +5,12 @@
     --background-mask-opacity: 0.5;
     --view-mask-mode-overlay-display: none;
 
+    --z-index-background: 1;
+    --z-index-background-mask: 2;
+    --z-index-content: 10;
+    --z-index-border: 20;
+    --z-index-view-mask-mode-overlay: 100;
+
     background: #000;
     overflow: hidden;
     position: relative;
@@ -33,7 +39,7 @@
     & > .title,
     & > p {
         position: relative;
-        z-index: 10;
+        z-index: var(--z-index-content);
     }
 
     & > .title {
@@ -132,11 +138,11 @@
     }
 
     & > .background {
-        z-index: 1;
+        z-index: var(--z-index-background);
     }
 
     & > .background-mask {
-        z-index: 2;
+        z-index: var(--z-index-background-mask);
         background: linear-gradient(
             to top,
             rgba(0, 0, 0, 1) 25%,
@@ -151,7 +157,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        z-index: 100;
+        z-index: var(--z-index-view-mask-mode-overlay);
         display: var(--view-mask-mode-overlay-display);
         background: #fff;
     }
@@ -175,5 +181,21 @@
             rgba(0, 0, 0, 1) 25%,
             rgba(0, 0, 0, 0) 100%
         );
+    }
+}
+
+.cell.mod-border {
+    &::before {
+        --offset: 0px;
+        content: "";
+        position: absolute;
+        top: var(--offset);
+        bottom: var(--offset);
+        left: var(--offset);
+        right: var(--offset);
+        border: calc(2 * (100vh / 1080)) solid rgba(255, 255, 255, 0.1);
+        border-radius: inherit;
+        z-index: var(--z-index-border);
+        box-shadow: inset 0 0 calc(20 * (100vh / 1080)) rgba(0, 0, 0, 0.25);
     }
 }
