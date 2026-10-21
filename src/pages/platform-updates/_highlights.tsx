@@ -30,7 +30,11 @@ const Highlights: FC<
         itemGroups: {
             name: string;
             title: string;
-            items: CellProps[];
+            items: ({
+                rowSpan?: number;
+                colSpan?: number;
+                columnSpan?: number;
+            } & CellProps)[];
             gridTemplate?: {
                 rows?: string;
                 columns?: string;
@@ -112,20 +116,37 @@ const Highlights: FC<
                                     group.gridTemplate?.columns,
                             }}
                         >
-                            {group.items.map((item, itemIndex) => (
-                                <Cell
-                                    className={classNames([
-                                        styles["cell"],
-                                        {
-                                            [styles[`is-view-${viewType}`]]:
-                                                !!viewType,
-                                        },
-                                    ])}
-                                    key={itemIndex}
-                                    data-view={viewType}
-                                    {...item}
-                                />
-                            ))}
+                            {group.items.map(
+                                (
+                                    {
+                                        rowSpan,
+                                        colSpan,
+                                        columnSpan,
+                                        style,
+                                        ...item
+                                    },
+                                    itemIndex,
+                                ) => (
+                                    <Cell
+                                        className={classNames([styles["cell"]])}
+                                        key={itemIndex}
+                                        style={
+                                            {
+                                                gridColumn: colSpan
+                                                    ? `span ${colSpan}`
+                                                    : columnSpan
+                                                      ? `span ${columnSpan}`
+                                                      : undefined,
+                                                gridRow: rowSpan
+                                                    ? `span ${rowSpan}`
+                                                    : undefined,
+                                                ...style,
+                                            } as Record<string, string>
+                                        }
+                                        {...item}
+                                    />
+                                ),
+                            )}
                         </section>
                     </section>
                 ))}

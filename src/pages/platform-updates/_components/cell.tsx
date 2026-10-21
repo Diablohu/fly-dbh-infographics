@@ -39,13 +39,11 @@ export type CellProps = {
         /** CSS Style: background-position */
         position?: CSSProperties["backgroundPosition"];
     };
-    // img?: string;
+    mask?: {
+        orientation?: "horizontal" | "vertical";
+    };
     // mask?: boolean;
     textSize?: "lg" | "md" | "sm";
-    /** 行数 */
-    rowSpan?: number;
-    /** 列数 */
-    columnSpan?: number;
     // type?: "info" | "center";
     // infoCell?: boolean;
     // lightBorder?: boolean;
@@ -53,7 +51,6 @@ export type CellProps = {
     // extra?: ReactNode;
     /** 开发者 */
     // developers?: string[];
-    bgMaskOrientation?: "horizontal" | "vertical";
     delayed?: boolean;
     implemented?: false;
     // cells?: ItemCellType[];
@@ -73,15 +70,15 @@ const Cell: FC<CellProps> = ({
     infos,
     background = {},
 
-    textSize,
-    bgMaskOrientation = "vertical",
+    textSize = "md",
+    mask,
 
     children,
-    style = {},
 
     ...props
 }) => {
     const [viewType] = useViewType();
+    const maskOrientation = mask?.orientation ?? "vertical";
     return (
         <div
             className={classNames([
@@ -91,30 +88,21 @@ const Cell: FC<CellProps> = ({
                     [styles[`is-view-${viewType}`]]: !!viewType,
 
                     [styles[`mod-text-size-${textSize}`]]: !!textSize,
-                    [styles[`mod-bg-mask-orientation-${bgMaskOrientation}`]]:
-                        !!bgMaskOrientation,
+                    [styles[`mod-bg-mask-orientation-${maskOrientation}`]]:
+                        !!maskOrientation,
                     // [styles[`mod-align-${align}`]]: !!align,
                     // [styles[`mod-vertical-align-${verticalAlign}`]]:
                     //     !!verticalAlign,
                 },
             ])}
-            style={{
-                backgroundImage: background.name
-                    ? `url(/static-images/${background.name})`
-                    : undefined,
-                backgroundSize: background.size,
-                backgroundPosition: background.position,
-                gridColumn: props.columnSpan
-                    ? `span ${props.columnSpan}`
-                    : undefined,
-                gridRow: props.rowSpan ? `span ${props.rowSpan}` : undefined,
-                ...style,
-            }}
+            data-view={viewType}
+            data-text-size={textSize}
+            data-mask-orientation={maskOrientation}
             {...props}
         >
             {children ?? (
                 <>
-                    <strong>
+                    <strong className={styles["title"]}>
                         {Array.isArray(title)
                             ? title.map((line, i, arr) => (
                                   <Fragment key={i}>
@@ -131,16 +119,28 @@ const Cell: FC<CellProps> = ({
                             "content" in info
                         ) {
                             return (
-                                <span key={index}>
-                                    <CellTag type={info.type}></CellTag>
+                                <p key={index} data-type={info.type}>
+                                    <Tag type={info.type}></Tag>
                                     {info.content}
-                                </span>
+                                </p>
                             );
                         }
-                        return <span key={index}>{info}</span>;
+                        return <p key={index}>{info}</p>;
                     })}
                 </>
             )}
+            <span
+                className={styles["background"]}
+                style={{
+                    backgroundImage: background.name
+                        ? `url(/static-images/${background.name})`
+                        : undefined,
+                    backgroundSize: background.size,
+                    backgroundPosition: background.position,
+                }}
+            />
+            <span className={styles["background-mask"]} />
+            <span className={styles["view-mask-mode-overlay"]} />
             {/* {extra} */}
         </div>
     );
@@ -150,7 +150,7 @@ export default Cell;
 
 // ============================================================================
 
-export const CellTag: FC<
+export const Tag: FC<
     {
         type: Exclude<Required<CellProps>["infos"][0], ReactNode>["type"];
     } & DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
@@ -159,7 +159,7 @@ export const CellTag: FC<
         <small
             className={classNames([
                 className,
-                styles[`cell-tag`],
+                styles[`tag`],
                 `is-type-${type}`,
                 {
                     [styles[`is-type-${type}`]]: !!type,
@@ -178,7 +178,9 @@ export const CellTag: FC<
                           ? "变更"
                           : type === "remove"
                             ? "移除"
-                            : type)}
+                            : type === "list-item"
+                              ? "・"
+                              : null)}
         </small>
     );
 };

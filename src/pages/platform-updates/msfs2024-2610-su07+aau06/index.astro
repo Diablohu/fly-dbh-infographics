@@ -1,0 +1,441 @@
+---
+import Layout from "../_layout.astro";
+---
+
+<Layout
+    title="msfs2024"
+    updates={[
+        { type: "su", number: 7 },
+        { type: "aau", number: 6 },
+    ]}
+    itemGroups={[
+        {
+            name: "general",
+            title: "综合体验",
+            gridTemplate: {
+                rows: "repeat(5, 1fr)",
+                columns: "repeat(6, 1fr)",
+            },
+            items: [
+                {
+                    title: "全新玩法",
+                    infos: [
+                        {
+                            type: "new",
+                            content: "全国飞行锦标赛",
+                        },
+                        {
+                            type: "list-item",
+                            content: "８人赛道竞速",
+                        },
+                        { type: "list-item", content: "１v１短距起降对决" },
+                    ],
+                    rowSpan: 3,
+                    columnSpan: 3,
+                    background: {
+                        name: "2026-01-24-23-21-22.png",
+                        size: "auto 150%",
+                        position: "20% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                    textSize: "lg",
+                },
+                {
+                    title: "全新工具",
+                    infos: [
+                        {
+                            type: "new",
+                            content: "EFB App - 地面服务",
+                        },
+                        { type: "list-item", content: "控制后推车" },
+                        { type: "list-item", content: "呼叫地勤服务" },
+                        { type: "list-item", content: "开关舱门" },
+                        { type: "list-item", content: "一键完成绕机检查" },
+                    ],
+                    rowSpan: 2,
+                    columnSpan: 3,
+                    background: {
+                        name: "2026-01-24-23-21-22.png",
+                        size: "250% auto",
+                        position: "65% 27%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                    textSize: "lg",
+                },
+                {
+                    title: "飞行员生涯",
+                    infos: [
+                        { type: "new", content: "更多任务过滤器" },
+                        "不可抗力坠毁不受惩罚",
+                    ],
+                    rowSpan: 2,
+                    columnSpan: 3,
+                    background: {
+                        name: "2025-12-12-20-50-04.png",
+                        size: "150% auto",
+                        position: "40% 90%",
+                    },
+                    // type: 'center',
+                    mask: {
+                        orientation: "vertical",
+                    },
+                    textSize: "lg",
+                },
+                {
+                    title: "游戏世界",
+                    infos: ["修复：景观过亮"],
+                    rowSpan: 1,
+                    columnSpan: 3,
+                    background: {
+                        name: "20251124154437_1.jpg",
+                        size: "auto 300%",
+                        position: "25% 35%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                    textSize: "lg",
+                },
+                {
+                    title: "帧率表现",
+                    infos: ["优化：长途飞行变卡"],
+                    columnSpan: 2,
+                    background: {
+                        name: "20260104033226_1.jpg",
+                        size: "150% auto",
+                        position: "0% 70%",
+                    },
+                    mask: {
+                        orientation: "vertical",
+                    },
+                    // textSize: "sm",
+                },
+                {
+                    title: "官方手工机场",
+                    infos: ["优化资源占用"],
+                    columnSpan: 2,
+                    background: {
+                        name: "20260104033226_1.jpg",
+                        size: "150% auto",
+                        position: "0% 70%",
+                    },
+                    mask: {
+                        orientation: "vertical",
+                    },
+                    // textSize: "sm",
+                },
+                {
+                    title: "SDK",
+                    infos: [{ type: "new", content: "性能衡量工具" }],
+                    columnSpan: 2,
+                    background: {
+                        name: "20260104033226_1.jpg",
+                        size: "150% auto",
+                        position: "0% 70%",
+                    },
+                    mask: {
+                        orientation: "vertical",
+                    },
+                    // textSize: "sm",
+                },
+            ],
+        },
+
+        {
+            name: "aircrafts",
+            title: "机型",
+            gridTemplate: {
+                rows: "repeat(5, 2fr)",
+                columns: "repeat(20, 1fr)",
+            },
+            items: [
+                {
+                    title: "容克斯 JU-52",
+                    infos: ["翻新重做", "进驻生涯模式"],
+                    columnSpan: 4,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "容克斯 F-13",
+                    infos: ["翻新重做", "进驻生涯模式"],
+                    columnSpan: 4,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "多尼尔 DO-31",
+                    infos: ["翻新重做", "进驻生涯模式"],
+                    columnSpan: 4,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "多尼尔 DO-X",
+                    infos: ["翻新重做"],
+                    columnSpan: 4,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "多尼尔 DO-J",
+                    infos: ["翻新重做"],
+                    columnSpan: 4,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "Pitts S1S",
+                    infos: ["大量优化修正"],
+                    columnSpan: 4,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: 'T-6 "德州人"',
+                    infos: ["大量优化修正"],
+                    columnSpan: 4,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: 'P-51 "野马"',
+                    infos: ["大量优化修正"],
+                    columnSpan: 4,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: 'L-39 "信天翁"',
+                    infos: ["大量优化修正"],
+                    columnSpan: 4,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "X Cub",
+                    infos: ["大量优化修正"],
+                    columnSpan: 4,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "ATR-42/72-600",
+                    infos: ["进驻生涯模式"],
+                    columnSpan: 5,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "塞斯纳 185F",
+                    infos: [{ type: "new", content: "自动驾驶" }],
+                    columnSpan: 5,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "Taurus M",
+                    infos: ["翻新航电", "大量优化修正"],
+                    columnSpan: 5,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "波音 707",
+                    infos: ["修复：EFB 中文渲染"],
+                    columnSpan: 5,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "派珀 M600",
+                    infos: [{ type: "new", content: "货物外观" }],
+                    columnSpan: 5,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "波音 C-17",
+                    infos: ["大量优化修正"],
+                    columnSpan: 5,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "空客直升机 H225",
+                    infos: ["大量优化修正"],
+                    columnSpan: 5,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "萨博 340B",
+                    infos: ["大量优化修正"],
+                    columnSpan: 5,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "Volocity",
+                    infos: ["大量优化修正"],
+                    columnSpan: 5,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "更多机型",
+                    infos: ["修复：生涯任务飞行阶段切换"],
+                    columnSpan: 10,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+                {
+                    title: "全新涂装",
+                    infos: [{ type: "new", content: "德国汉莎" }],
+                    columnSpan: 5,
+                    background: {
+                        name: "FSWeekend 2026 LIVE on the FSElite Stage (SATURDAY 21st March 2026).mp4_20260409_020226.590.png",
+                        size: "133% auto",
+                        position: "97% 50%",
+                    },
+                    mask: {
+                        orientation: "horizontal",
+                    },
+                },
+            ],
+        },
+    ]}
+    style={{
+        "--body-grid-template-columns": "3fr 5fr",
+        "--body-grid-template-rows": `1fr`,
+        "--body-grid-template-areas": `
+            "general aircrafts"
+        `,
+        "--body-padding-x-unit": "60",
+        "--body-padding-y-unit": "15",
+    } as unknown as React.CSSProperties}
+/>

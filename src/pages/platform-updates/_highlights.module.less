@@ -8,6 +8,8 @@
 
     --body-padding-x-unit: 150;
     --body-padding-x: calc(var(--body-padding-x-unit) * (100vw / 1920));
+    --body-padding-y-unit: 0;
+    --body-padding-y: calc(var(--body-padding-y-unit) * (100vh / 1080));
     --body-grid-template-columns: 1fr;
     --body-grid-template-rows: 1fr;
     --body-grid-template-areas: "";
@@ -167,8 +169,7 @@
 
     .body {
         grid-area: body;
-        padding-left: var(--body-padding-x);
-        padding-right: var(--body-padding-x);
+        padding: var(--body-padding-y) var(--body-padding-x);
         display: grid;
         grid-template-columns: var(--body-grid-template-columns);
         grid-template-rows: var(--body-grid-template-rows);
